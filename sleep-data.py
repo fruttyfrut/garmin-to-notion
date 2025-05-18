@@ -60,20 +60,20 @@ def create_sleep_data(client, database_id, sleep_data, skip_zero_sleep=True):
 
     properties = {
         "Date": {"title": [{"text": {"content": format_date_for_name(sleep_date)}}]},
-        "Times": {"rich_text": [{"text": {"content": f"{format_time_readable(daily_sleep.get('sleepStartTimestampGMT'))} → {format_time_readable(daily_sleep.get('sleepEndTimestampGMT'))}"}}]},
+        "Heures de sommeil": {"rich_text": [{"text": {"content": f"{format_time_readable(daily_sleep.get('sleepStartTimestampGMT'))} → {format_time_readable(daily_sleep.get('sleepEndTimestampGMT'))}"}}]},
         "Long Date": {"date": {"start": sleep_date}},
-        "Full Date/Time": {"date": {"start": format_time(daily_sleep.get('sleepStartTimestampGMT')), "end": format_time(daily_sleep.get('sleepEndTimestampGMT'))}},
-        "Total Sleep (h)": {"number": round(total_sleep / 3600, 1)},
-        "Light Sleep (h)": {"number": round(daily_sleep.get('lightSleepSeconds', 0) / 3600, 1)},
-        "Deep Sleep (h)": {"number": round(daily_sleep.get('deepSleepSeconds', 0) / 3600, 1)},
-        "REM Sleep (h)": {"number": round(daily_sleep.get('remSleepSeconds', 0) / 3600, 1)},
-        "Awake Time (h)": {"number": round(daily_sleep.get('awakeSleepSeconds', 0) / 3600, 1)},
-        "Total Sleep": {"rich_text": [{"text": {"content": format_duration(total_sleep)}}]},
-        "Light Sleep": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('lightSleepSeconds', 0))}}]},
-        "Deep Sleep": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('deepSleepSeconds', 0))}}]},
-        "REM Sleep": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('remSleepSeconds', 0))}}]},
-        "Awake Time": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('awakeSleepSeconds', 0))}}]},
-        "Resting HR": {"number": sleep_data.get('restingHeartRate', 0)}
+        "Horaires complets": {"date": {"start": format_time(daily_sleep.get('sleepStartTimestampGMT')), "end": format_time(daily_sleep.get('sleepEndTimestampGMT'))}},
+        "Durée totale (h)": {"number": round(total_sleep / 3600, 1)},
+        "Sommeil léger (h)": {"number": round(daily_sleep.get('lightSleepSeconds', 0) / 3600, 1)},
+        "Sommeil profond (h)": {"number": round(daily_sleep.get('deepSleepSeconds', 0) / 3600, 1)},
+        "Sommeil paradoxal (h)": {"number": round(daily_sleep.get('remSleepSeconds', 0) / 3600, 1)},
+        "Durée éveillée (h)": {"number": round(daily_sleep.get('awakeSleepSeconds', 0) / 3600, 1)},
+        "Durée totale": {"rich_text": [{"text": {"content": format_duration(total_sleep)}}]},
+        "Sommeil léger": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('lightSleepSeconds', 0))}}]},
+        "Sommeil profond": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('deepSleepSeconds', 0))}}]},
+        "Sommeil paradoxal": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('remSleepSeconds', 0))}}]},
+        "Durée éveillée": {"rich_text": [{"text": {"content": format_duration(daily_sleep.get('awakeSleepSeconds', 0))}}]},
+        "FC repos": {"number": sleep_data.get('restingHeartRate', 0)}
     }
     
     client.pages.create(parent={"database_id": database_id}, properties=properties, icon={"emoji": "😴"})
